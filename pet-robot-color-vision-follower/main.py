@@ -19,7 +19,7 @@ clock = time.clock() # Tracks FPS.
 
 # For color tracking to work really well you should ideally be in a very, very,
 # very, controlled enviroment where the lighting is constant...
-green_threshold   = (100, 64, -23, -79, 14, 119)
+green_threshold = (100, 64, -23, -79, 14, 119)
 size_threshold = 2000
 x_pid = PID(p=1, i=1, imax=100)
 h_pid = PID(p=0.02, i=0.1, imax=50)
@@ -27,7 +27,7 @@ h_pid = PID(p=0.02, i=0.1, imax=50)
 def find_max(blobs):
     max_size=0
     for blob in blobs:
-        if blob[2]*blob[3] > max_size:
+        if blob[2]*blob[3] > max_size:   # blob[2] is blob width, blob[3] is blob height
             max_blob=blob
             max_size = blob[2]*blob[3]
     return max_blob
@@ -39,7 +39,7 @@ while(True):
     blobs = img.find_blobs([green_threshold])
     if blobs:
         max_blob = find_max(blobs)
-        x_error = max_blob[5]-img.width()/2
+        x_error = max_blob[5]-img.width()/2   # max_blob[5] is the centroid x position of the blob
         h_error = max_blob[2]*max_blob[3]-size_threshold
         print("x error: ", x_error)
         '''
